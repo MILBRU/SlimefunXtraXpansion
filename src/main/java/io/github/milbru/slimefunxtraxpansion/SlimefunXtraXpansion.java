@@ -21,7 +21,7 @@ public class SlimefunXtraXpansion extends JavaPlugin implements SlimefunAddon {
         Config cfg = new Config(this);
 
         if (cfg.getBoolean("options.auto-update")) {
-            // You could start an Auto-Updater for example
+            System.out.print("hi");
         }
 
         /*
@@ -48,7 +48,14 @@ public class SlimefunXtraXpansion extends JavaPlugin implements SlimefunAddon {
          * The machine in which this recipe is crafted in is specified
          * further down as the RecipeType.
          */
-        ItemStack[] recipe = { new ItemStack(Material.EMERALD), null, new ItemStack(Material.EMERALD), null, new ItemStack(Material.DIAMOND), null, new ItemStack(Material.EMERALD), null, new ItemStack(Material.EMERALD) };
+        SlimefunItem item = getSlimefunItem(itemGroup, slimefunItem);
+        item.register(this);
+    }
+
+    private static SlimefunItem getSlimefunItem(ItemGroup itemGroup, SlimefunItemStack slimefunItem) {
+        ItemStack[] recipe = { new ItemStack(Material.EMERALD), null,                             new ItemStack(Material.EMERALD),
+                               null,                            SlimefunItems.CARBONADO,  null,
+                               new ItemStack(Material.EMERALD), null,                             new ItemStack(Material.EMERALD) };
 
         /*
          * 4. Registering the Item
@@ -57,8 +64,7 @@ public class SlimefunXtraXpansion extends JavaPlugin implements SlimefunAddon {
          * which this item is crafted in.
          * Recipe Types from Slimefun itself will automatically add the recipe to that machine.
          */
-        SlimefunItem item = new SlimefunItem(itemGroup, slimefunItem, RecipeType.ENHANCED_CRAFTING_TABLE, recipe);
-        item.register(this);
+        return new SlimefunItem(itemGroup, slimefunItem, RecipeType.ENHANCED_CRAFTING_TABLE, recipe);
     }
 
     @Override
